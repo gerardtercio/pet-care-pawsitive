@@ -19,9 +19,16 @@ import {
   CheckCircle
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel';
 import heroImage from '@/assets/hero-pets.jpg';
 import missionVetImage from '@/assets/mission-vet.jpg';
 import missionPetsImage from '@/assets/mission-pets.jpg';
+import facilityFacade from '@/assets/facility-facade.jpg';
+import facilityReception from '@/assets/facility-reception.jpg';
+import facilityExamRoom from '@/assets/facility-exam-room.jpg';
+import facilityWard from '@/assets/facility-ward.jpg';
+import facilityGrooming from '@/assets/facility-grooming.jpg';
+import facilityLaboratory from '@/assets/facility-laboratory.jpg';
 
 const VeterinaryLanding = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -100,6 +107,90 @@ const VeterinaryLanding = () => {
     }, [end, duration, hasAnimated]);
 
     return <span id={`counter-${end}`}>{count}</span>;
+  };
+
+  // Facility Carousel Component with Auto-play
+  const FacilityCarousel = () => {
+    const [api, setApi] = useState<CarouselApi>();
+
+    const facilities = [
+      { image: facilityFacade, alt: "Fachada moderna da clínica" },
+      { image: facilityReception, alt: "Recepção aconchegante" },
+      { image: facilityExamRoom, alt: "Sala de atendimento equipada" },
+      { image: facilityWard, alt: "Área de internação" },
+      { image: facilityGrooming, alt: "Espaço de banho e tosa" },
+      { image: facilityLaboratory, alt: "Laboratório interno" },
+    ];
+
+    // Auto-play functionality
+    useEffect(() => {
+      if (!api) return;
+
+      const intervalId = setInterval(() => {
+        api.scrollNext();
+      }, 5000); // 5 seconds between slides
+
+      return () => clearInterval(intervalId);
+    }, [api]);
+
+    // Pause on hover
+    useEffect(() => {
+      if (!api) return;
+
+      let intervalId: NodeJS.Timeout;
+
+      const startAutoplay = () => {
+        intervalId = setInterval(() => {
+          api.scrollNext();
+        }, 5000);
+      };
+
+      const stopAutoplay = () => {
+        clearInterval(intervalId);
+      };
+
+      const container = api.rootNode();
+      container.addEventListener('mouseenter', stopAutoplay);
+      container.addEventListener('mouseleave', startAutoplay);
+
+      startAutoplay();
+
+      return () => {
+        clearInterval(intervalId);
+        container.removeEventListener('mouseenter', stopAutoplay);
+        container.removeEventListener('mouseleave', startAutoplay);
+      };
+    }, [api]);
+
+    return (
+      <Carousel 
+        setApi={setApi}
+        opts={{
+          align: "center",
+          loop: true,
+        }}
+        className="w-full max-w-5xl mx-auto"
+      >
+        <CarouselContent>
+          {facilities.map((facility, index) => (
+            <CarouselItem key={index}>
+              <div className="relative rounded-xl overflow-hidden shadow-elegant">
+                <img 
+                  src={facility.image} 
+                  alt={facility.alt}
+                  className="w-full h-[400px] lg:h-[500px] object-cover"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-primary-dark/80 to-transparent p-6">
+                  <p className="text-primary-foreground text-xl font-semibold">{facility.alt}</p>
+                </div>
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious className="left-4" />
+        <CarouselNext className="right-4" />
+      </Carousel>
+    );
   };
 
   return (
@@ -478,49 +569,34 @@ const VeterinaryLanding = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-16 bg-muted">
+      {/* Facility Carousel Section */}
+      <section className="py-20 bg-muted">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center fade-in">
-              <div className="w-16 h-16 bg-accent-gradient rounded-full flex items-center justify-center mx-auto mb-4">
-                <Heart className="h-8 w-8 text-primary-foreground fill-current" />
-              </div>
-              <div className="text-3xl lg:text-4xl font-bold text-primary-dark mb-2">
-                <AnimatedCounter end={5000} />+
-              </div>
-              <div className="text-muted-foreground font-medium">Pets Atendidos</div>
-            </div>
+          <div className="text-center max-w-4xl mx-auto mb-12 fade-in">
+            <h2 className="text-3xl lg:text-4xl font-bold text-primary-dark mb-6">
+              🏥 Conheça Nossa Estrutura de Cuidado e Conforto
+            </h2>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Nossa clínica foi projetada para oferecer conforto, tecnologia e segurança — tanto para você quanto para seu pet. 
+              Cada espaço foi pensado para transmitir tranquilidade e confiança, desde a recepção acolhedora até as salas de 
+              atendimento equipadas com tecnologia veterinária de ponta.
+            </p>
+          </div>
 
-            <div className="text-center fade-in">
-              <div className="w-16 h-16 bg-accent-gradient rounded-full flex items-center justify-center mx-auto mb-4">
-                <Award className="h-8 w-8 text-primary-foreground" />
-              </div>
-              <div className="text-3xl lg:text-4xl font-bold text-primary-dark mb-2">
-                <AnimatedCounter end={15} />+
-              </div>
-              <div className="text-muted-foreground font-medium">Anos de Experiência</div>
-            </div>
+          <FacilityCarousel />
 
-            <div className="text-center fade-in">
-              <div className="w-16 h-16 bg-accent-gradient rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="h-8 w-8 text-primary-foreground" />
-              </div>
-              <div className="text-3xl lg:text-4xl font-bold text-primary-dark mb-2">
-                <AnimatedCounter end={8} />
-              </div>
-              <div className="text-muted-foreground font-medium">Veterinários</div>
-            </div>
-
-            <div className="text-center fade-in">
-              <div className="w-16 h-16 bg-accent-gradient rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle className="h-8 w-8 text-primary-foreground" />
-              </div>
-              <div className="text-3xl lg:text-4xl font-bold text-primary-dark mb-2">
-                <AnimatedCounter end={98} />%
-              </div>
-              <div className="text-muted-foreground font-medium">Clientes Satisfeitos</div>
-            </div>
+          <div className="text-center mt-12 fade-in">
+            <p className="text-xl font-semibold text-primary-dark mb-6">
+              🎯 Agende uma visita e conheça nossa estrutura pessoalmente!
+            </p>
+            <Button 
+              size="lg"
+              onClick={() => scrollToSection('contact')}
+              className="bg-accent-highlight hover:bg-accent-highlight/90 text-primary-foreground font-semibold hover-lift transition-bounce"
+            >
+              Agendar Visita
+              <Calendar className="ml-2 h-5 w-5" />
+            </Button>
           </div>
         </div>
       </section>
