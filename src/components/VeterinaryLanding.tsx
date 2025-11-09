@@ -128,7 +128,7 @@ const VeterinaryLanding = () => {
 
       const intervalId = setInterval(() => {
         api.scrollNext();
-      }, 5000); // 5 seconds between slides
+      }, 8000); // 8 seconds between slides
 
       return () => clearInterval(intervalId);
     }, [api]);
@@ -142,7 +142,7 @@ const VeterinaryLanding = () => {
       const startAutoplay = () => {
         intervalId = setInterval(() => {
           api.scrollNext();
-        }, 5000);
+        }, 8000);
       };
 
       const stopAutoplay = () => {
@@ -166,15 +166,17 @@ const VeterinaryLanding = () => {
       <Carousel 
         setApi={setApi}
         opts={{
-          align: "center",
+          align: "start",
           loop: true,
+          slidesToScroll: 1,
+          duration: 40,
         }}
-        className="w-full max-w-5xl mx-auto"
+        className="w-full max-w-7xl mx-auto"
       >
         <CarouselContent>
           {facilities.map((facility, index) => (
-            <CarouselItem key={index}>
-              <div className="relative rounded-xl overflow-hidden shadow-elegant">
+            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+              <div className="relative rounded-xl overflow-hidden shadow-elegant mx-2">
                 <img 
                   src={facility.image} 
                   alt={facility.alt}
