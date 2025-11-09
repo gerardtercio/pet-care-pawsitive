@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Heart, 
   Menu, 
@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel';
+import { useScrollAnimation, useStaggerAnimation } from '@/hooks/use-scroll-animation';
 import heroImage from '@/assets/hero-pets.jpg';
 import missionVetImage from '@/assets/mission-vet.jpg';
 import missionPetsImage from '@/assets/mission-pets.jpg';
@@ -33,10 +34,12 @@ import facilityLaboratory from '@/assets/facility-laboratory.jpg';
 const VeterinaryLanding = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
-  // Scroll effect for header
+  // Parallax effect on scroll
   useEffect(() => {
     const handleScroll = () => {
+      setScrollY(window.scrollY);
       setIsScrolled(window.scrollY > 20);
     };
 
@@ -176,11 +179,11 @@ const VeterinaryLanding = () => {
         <CarouselContent>
           {facilities.map((facility, index) => (
             <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-              <div className="relative rounded-xl overflow-hidden shadow-elegant mx-2">
+              <div className="relative rounded-xl overflow-hidden shadow-elegant mx-2 hover-elevate transition-all duration-700">
                 <img 
                   src={facility.image} 
                   alt={facility.alt}
-                  className="w-full h-[400px] lg:h-[500px] object-cover"
+                  className="w-full h-[400px] lg:h-[500px] object-cover transition-transform duration-700 hover:scale-110"
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-primary-dark/80 to-transparent p-6">
                   <p className="text-primary-foreground text-xl font-semibold">{facility.alt}</p>
@@ -213,25 +216,25 @@ const VeterinaryLanding = () => {
             <nav className="hidden md:flex items-center space-x-8">
               <button 
                 onClick={() => scrollToSection('home')}
-                className="text-primary-foreground hover:text-accent-highlight transition-smooth"
+                className="text-primary-foreground hover:text-accent-highlight transition-all duration-500 relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-accent-highlight after:transition-all after:duration-500 hover:after:w-full"
               >
                 Home
               </button>
               <button 
                 onClick={() => scrollToSection('about')}
-                className="text-primary-foreground hover:text-accent-highlight transition-smooth"
+                className="text-primary-foreground hover:text-accent-highlight transition-all duration-500 relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-accent-highlight after:transition-all after:duration-500 hover:after:w-full"
               >
                 Sobre
               </button>
               <button 
                 onClick={() => scrollToSection('services')}
-                className="text-primary-foreground hover:text-accent-highlight transition-smooth"
+                className="text-primary-foreground hover:text-accent-highlight transition-all duration-500 relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-accent-highlight after:transition-all after:duration-500 hover:after:w-full"
               >
                 Serviços
               </button>
               <button 
                 onClick={() => scrollToSection('contact')}
-                className="text-primary-foreground hover:text-accent-highlight transition-smooth"
+                className="text-primary-foreground hover:text-accent-highlight transition-all duration-500 relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-accent-highlight after:transition-all after:duration-500 hover:after:w-full"
               >
                 Contato
               </button>
@@ -242,13 +245,13 @@ const VeterinaryLanding = () => {
               <Button 
                 variant="outline" 
                 onClick={() => scrollToSection('services')}
-                className="border-primary-foreground text-primary hover:bg-primary-foreground hover:text-primary transition-smooth"
+                className="border-primary-foreground text-primary hover:bg-primary-foreground hover:text-primary transition-all duration-500 hover-elevate"
               >
                 Nossos Serviços
               </Button>
               <Button 
                 onClick={() => scrollToSection('contact')}
-                className="bg-primary-dark hover:bg-primary-light text-primary-foreground transition-smooth hover-lift"
+                className="bg-primary-dark hover:bg-primary-light text-primary-foreground transition-all duration-500 hover-elevate hover-shine"
               >
                 Agendar
               </Button>
@@ -314,11 +317,20 @@ const VeterinaryLanding = () => {
 
       {/* Hero Section */}
       <section id="home" className="relative min-h-screen flex items-center hero-gradient overflow-hidden pt-16">
-        {/* Decorative shapes */}
+        {/* Decorative shapes with parallax */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 left-10 w-32 h-32 bg-primary-foreground/10 rounded-full"></div>
-          <div className="absolute bottom-20 right-10 w-48 h-48 bg-accent-highlight/20 rounded-full"></div>
-          <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-primary-light/30 rounded-full"></div>
+          <div 
+            className="absolute top-20 left-10 w-32 h-32 bg-primary-foreground/10 rounded-full parallax-slow"
+            style={{ transform: `translateY(${scrollY * 0.15}px)` }}
+          ></div>
+          <div 
+            className="absolute bottom-20 right-10 w-48 h-48 bg-accent-highlight/20 rounded-full parallax-slow"
+            style={{ transform: `translateY(${scrollY * -0.1}px)` }}
+          ></div>
+          <div 
+            className="absolute top-1/2 left-1/4 w-24 h-24 bg-primary-light/30 rounded-full parallax-slow"
+            style={{ transform: `translateY(${scrollY * 0.2}px)` }}
+          ></div>
         </div>
 
         <div className="container mx-auto px-4">
@@ -333,27 +345,27 @@ const VeterinaryLanding = () => {
                 Nossa equipe dedicada oferece tratamentos modernos em um ambiente acolhedor e profissional.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
-                  size="lg"
-                  onClick={() => scrollToSection('services')}
-                  className="bg-accent-highlight hover:bg-accent-highlight/90 text-primary-foreground font-semibold hover-lift transition-bounce"
-                >
-                  Nossos Serviços
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-                <Button 
-                  size="lg"
-                  variant="outline"
-                  onClick={() => scrollToSection('about')}
-                  className="border-primary-foreground text-primary hover:bg-primary-foreground hover:text-primary transition-smooth"
-                >
-                  Sobre Nós
-                </Button>
+              <Button 
+                size="lg"
+                onClick={() => scrollToSection('services')}
+                className="bg-accent-highlight hover:bg-accent-highlight/90 text-primary-foreground font-semibold hover-elevate hover-shine transition-all duration-500"
+              >
+                Nossos Serviços
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+              <Button 
+                size="lg"
+                variant="outline"
+                onClick={() => scrollToSection('about')}
+                className="border-primary-foreground text-primary hover:bg-primary-foreground hover:text-primary transition-all duration-500 hover-elevate"
+              >
+                Sobre Nós
+              </Button>
               </div>
             </div>
 
-            <div className="relative fade-in">
-              <div className="relative z-10 hover-scale">
+            <div className="relative fade-in-up">
+              <div className="relative z-10 hover-elevate transition-all duration-700">
                 <img 
                   src={heroImage} 
                   alt="Pets felizes na clínica veterinária" 
@@ -390,12 +402,12 @@ const VeterinaryLanding = () => {
                 <img 
                   src={missionVetImage} 
                   alt="Veterinária examinando filhote" 
-                  className="rounded-2xl shadow-soft hover-lift"
+                  className="rounded-2xl shadow-soft hover-elevate transition-all duration-600"
                 />
                 <img 
                   src={missionPetsImage} 
                   alt="Pets saudáveis e felizes" 
-                  className="rounded-2xl shadow-soft hover-lift mt-8"
+                  className="rounded-2xl shadow-soft hover-elevate transition-all duration-600 mt-8"
                 />
               </div>
             </div>
@@ -455,8 +467,8 @@ const VeterinaryLanding = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Service Card 1 */}
-            <div className="fade-in card-gradient rounded-xl p-8 shadow-soft hover-lift">
-              <div className="w-16 h-16 bg-accent-gradient rounded-full flex items-center justify-center mb-6">
+            <div className="scale-in card-gradient rounded-xl p-8 shadow-soft hover-elevate hover-glass border border-border/50 hover-border-glow group">
+              <div className="w-16 h-16 bg-accent-gradient rounded-full flex items-center justify-center mb-6 transition-transform duration-600 group-hover:rotate-12 group-hover:scale-110">
                 <Stethoscope className="h-8 w-8 text-primary-foreground" />
               </div>
               <h3 className="text-xl font-bold text-primary-dark mb-4">Consultas Gerais</h3>
@@ -466,16 +478,16 @@ const VeterinaryLanding = () => {
               </p>
               <button 
                 onClick={() => scrollToSection('contact')}
-                className="flex items-center text-accent.paw hover:text-primary-dark font-semibold transition-smooth"
+                className="group flex items-center text-accent.paw hover:text-primary-dark font-semibold transition-all duration-500"
               >
                 Saiba Mais
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-500 group-hover:translate-x-2" />
               </button>
             </div>
 
             {/* Service Card 2 */}
-            <div className="fade-in card-gradient rounded-xl p-8 shadow-soft hover-lift">
-              <div className="w-16 h-16 bg-accent-gradient rounded-full flex items-center justify-center mb-6">
+            <div className="scale-in card-gradient rounded-xl p-8 shadow-soft hover-elevate hover-glass border border-border/50 hover-border-glow group">
+              <div className="w-16 h-16 bg-accent-gradient rounded-full flex items-center justify-center mb-6 transition-transform duration-600 group-hover:rotate-12 group-hover:scale-110">
                 <Shield className="h-8 w-8 text-primary-foreground" />
               </div>
               <h3 className="text-xl font-bold text-primary-dark mb-4">Vacinação</h3>
@@ -485,16 +497,16 @@ const VeterinaryLanding = () => {
               </p>
               <button 
                 onClick={() => scrollToSection('contact')}
-                className="flex items-center text-accent.paw hover:text-primary-dark font-semibold transition-smooth"
+                className="group flex items-center text-accent.paw hover:text-primary-dark font-semibold transition-all duration-500"
               >
                 Saiba Mais
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-500 group-hover:translate-x-2" />
               </button>
             </div>
 
             {/* Service Card 3 */}
-            <div className="fade-in card-gradient rounded-xl p-8 shadow-soft hover-lift">
-              <div className="w-16 h-16 bg-accent-gradient rounded-full flex items-center justify-center mb-6">
+            <div className="scale-in card-gradient rounded-xl p-8 shadow-soft hover-elevate hover-glass border border-border/50 hover-border-glow group">
+              <div className="w-16 h-16 bg-accent-gradient rounded-full flex items-center justify-center mb-6 transition-transform duration-600 group-hover:rotate-12 group-hover:scale-110">
                 <Heart className="h-8 w-8 text-primary-foreground fill-current" />
               </div>
               <h3 className="text-xl font-bold text-primary-dark mb-4">Cirurgias</h3>
@@ -504,16 +516,16 @@ const VeterinaryLanding = () => {
               </p>
               <button 
                 onClick={() => scrollToSection('contact')}
-                className="flex items-center text-accent.paw hover:text-primary-dark font-semibold transition-smooth"
+                className="group flex items-center text-accent.paw hover:text-primary-dark font-semibold transition-all duration-500"
               >
                 Saiba Mais
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-500 group-hover:translate-x-2" />
               </button>
             </div>
 
             {/* Service Card 4 */}
-            <div className="fade-in card-gradient rounded-xl p-8 shadow-soft hover-lift">
-              <div className="w-16 h-16 bg-accent-gradient rounded-full flex items-center justify-center mb-6">
+            <div className="scale-in card-gradient rounded-xl p-8 shadow-soft hover-elevate hover-glass border border-border/50 hover-border-glow group">
+              <div className="w-16 h-16 bg-accent-gradient rounded-full flex items-center justify-center mb-6 transition-transform duration-600 group-hover:rotate-12 group-hover:scale-110">
                 <Clock className="h-8 w-8 text-primary-foreground" />
               </div>
               <h3 className="text-xl font-bold text-primary-dark mb-4">Emergências 24h</h3>
@@ -523,16 +535,16 @@ const VeterinaryLanding = () => {
               </p>
               <button 
                 onClick={() => scrollToSection('contact')}
-                className="flex items-center text-accent.paw hover:text-primary-dark font-semibold transition-smooth"
+                className="group flex items-center text-accent.paw hover:text-primary-dark font-semibold transition-all duration-500"
               >
                 Saiba Mais
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-500 group-hover:translate-x-2" />
               </button>
             </div>
 
             {/* Service Card 5 */}
-            <div className="fade-in card-gradient rounded-xl p-8 shadow-soft hover-lift">
-              <div className="w-16 h-16 bg-accent-gradient rounded-full flex items-center justify-center mb-6">
+            <div className="scale-in card-gradient rounded-xl p-8 shadow-soft hover-elevate hover-glass border border-border/50 hover-border-glow group">
+              <div className="w-16 h-16 bg-accent-gradient rounded-full flex items-center justify-center mb-6 transition-transform duration-600 group-hover:rotate-12 group-hover:scale-110">
                 <Calendar className="h-8 w-8 text-primary-foreground" />
               </div>
               <h3 className="text-xl font-bold text-primary-dark mb-4">Check-ups Preventivos</h3>
@@ -542,16 +554,16 @@ const VeterinaryLanding = () => {
               </p>
               <button 
                 onClick={() => scrollToSection('contact')}
-                className="flex items-center text-accent.paw hover:text-primary-dark font-semibold transition-smooth"
+                className="group flex items-center text-accent.paw hover:text-primary-dark font-semibold transition-all duration-500"
               >
                 Saiba Mais
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-500 group-hover:translate-x-2" />
               </button>
             </div>
 
             {/* Service Card 6 */}
-            <div className="fade-in card-gradient rounded-xl p-8 shadow-soft hover-lift">
-              <div className="w-16 h-16 bg-accent-gradient rounded-full flex items-center justify-center mb-6">
+            <div className="scale-in card-gradient rounded-xl p-8 shadow-soft hover-elevate hover-glass border border-border/50 hover-border-glow group">
+              <div className="w-16 h-16 bg-accent-gradient rounded-full flex items-center justify-center mb-6 transition-transform duration-600 group-hover:rotate-12 group-hover:scale-110">
                 <Users className="h-8 w-8 text-primary-foreground" />
               </div>
               <h3 className="text-xl font-bold text-primary-dark mb-4">Consultoria Pet</h3>
@@ -561,10 +573,10 @@ const VeterinaryLanding = () => {
               </p>
               <button 
                 onClick={() => scrollToSection('contact')}
-                className="flex items-center text-accent.paw hover:text-primary-dark font-semibold transition-smooth"
+                className="group flex items-center text-accent.paw hover:text-primary-dark font-semibold transition-all duration-500"
               >
                 Saiba Mais
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-500 group-hover:translate-x-2" />
               </button>
             </div>
           </div>
@@ -594,7 +606,7 @@ const VeterinaryLanding = () => {
             <Button 
               size="lg"
               onClick={() => scrollToSection('contact')}
-              className="bg-accent-highlight hover:bg-accent-highlight/90 text-primary-foreground font-semibold hover-lift transition-bounce"
+              className="bg-accent-highlight hover:bg-accent-highlight/90 text-primary-foreground font-semibold hover-elevate hover-shine transition-all duration-600"
             >
               Agendar Visita
               <Calendar className="ml-2 h-5 w-5" />
@@ -618,7 +630,7 @@ const VeterinaryLanding = () => {
                 <Button 
                   size="lg"
                   onClick={() => scrollToSection('contact')}
-                  className="bg-accent-highlight hover:bg-accent-highlight/90 text-primary-foreground font-semibold hover-lift transition-bounce"
+                  className="bg-accent-highlight hover:bg-accent-highlight/90 text-primary-foreground font-semibold hover-elevate hover-shine transition-all duration-600"
                 >
                 Agendar Consulta
                 <Calendar className="ml-2 h-5 w-5" />
@@ -627,7 +639,7 @@ const VeterinaryLanding = () => {
                 size="lg"
                 variant="outline"
                 onClick={() => scrollToSection('services')}
-                className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-smooth"
+                className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-500 hover-elevate"
               >
                 Ver Todos os Serviços
               </Button>
@@ -651,13 +663,13 @@ const VeterinaryLanding = () => {
                 Tecnologia moderna com toque humano caloroso.
               </p>
               <div className="flex space-x-4">
-                <a href="#" className="text-primary-foreground/60 hover:text-accent-highlight transition-smooth hover-scale">
+                <a href="#" className="text-primary-foreground/60 hover:text-accent-highlight transition-all duration-500 hover:scale-110">
                   <Facebook className="h-6 w-6" />
                 </a>
-                <a href="#" className="text-primary-foreground/60 hover:text-accent-highlight transition-smooth hover-scale">
+                <a href="#" className="text-primary-foreground/60 hover:text-accent-highlight transition-all duration-500 hover:scale-110">
                   <Instagram className="h-6 w-6" />
                 </a>
-                <a href="#" className="text-primary-foreground/60 hover:text-accent-highlight transition-smooth hover-scale">
+                <a href="#" className="text-primary-foreground/60 hover:text-accent-highlight transition-all duration-500 hover:scale-110">
                   <Twitter className="h-6 w-6" />
                 </a>
               </div>
@@ -668,33 +680,33 @@ const VeterinaryLanding = () => {
               <h3 className="text-lg font-semibold mb-6">Links Rápidos</h3>
               <ul className="space-y-3">
                 <li>
-                  <button 
-                    onClick={() => scrollToSection('home')}
-                    className="text-primary-foreground/80 hover:text-accent-highlight transition-smooth"
-                  >
-                    Home
-                  </button>
+                <button 
+                  onClick={() => scrollToSection('home')}
+                  className="text-primary-foreground/80 hover:text-accent-highlight transition-all duration-500 hover:translate-x-1"
+                >
+                  Home
+                </button>
                 </li>
                 <li>
-                  <button 
-                    onClick={() => scrollToSection('about')}
-                    className="text-primary-foreground/80 hover:text-accent-highlight transition-smooth"
-                  >
-                    Sobre Nós
-                  </button>
+                <button 
+                  onClick={() => scrollToSection('about')}
+                  className="text-primary-foreground/80 hover:text-accent-highlight transition-all duration-500 hover:translate-x-1"
+                >
+                  Sobre Nós
+                </button>
                 </li>
                 <li>
-                  <button 
-                    onClick={() => scrollToSection('services')}
-                    className="text-primary-foreground/80 hover:text-accent-highlight transition-smooth"
-                  >
-                    Serviços
-                  </button>
+                <button 
+                  onClick={() => scrollToSection('services')}
+                  className="text-primary-foreground/80 hover:text-accent-highlight transition-all duration-500 hover:translate-x-1"
+                >
+                  Serviços
+                </button>
                 </li>
                 <li>
-                  <a href="#" className="text-primary-foreground/80 hover:text-accent-highlight transition-smooth">
-                    Blog
-                  </a>
+                <a href="#" className="text-primary-foreground/80 hover:text-accent-highlight transition-all duration-500 hover:translate-x-1">
+                  Blog
+                </a>
                 </li>
               </ul>
             </div>
