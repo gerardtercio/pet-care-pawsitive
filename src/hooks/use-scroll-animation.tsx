@@ -1,6 +1,10 @@
 import { useEffect, useRef } from 'react';
 
-export const useScrollAnimation = (threshold = 0.1) => {
+/**
+ * Hook para animar elementos quando eles entram na viewport
+ * Usa Intersection Observer API para performance otimizada
+ */
+export const useScrollAnimation = (threshold = 0.1, rootMargin = '0px 0px -100px 0px') => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -11,34 +15,41 @@ export const useScrollAnimation = (threshold = 0.1) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('animate');
+            entry.target.classList.add('is-visible');
+            // Opcional: desconectar após animar (para animar apenas uma vez)
+            // observer.unobserve(entry.target);
           }
         });
       },
       {
         threshold,
-        rootMargin: '0px 0px -100px 0px',
+        rootMargin,
       }
     );
 
     observer.observe(element);
 
     return () => {
-      observer.disconnect();
+      if (element) {
+        observer.unobserve(element);
+      }
     };
-  }, [threshold]);
+  }, [threshold, rootMargin]);
 
   return ref;
 };
 
+/**
+ * Hook para animar múltiplos elementos em sequência (stagger effect)
+ */
 export const useStaggerAnimation = (delay = 100) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
+    const container = ref.current;
+    if (!container) return;
 
-    const children = element.querySelectorAll('.stagger-item');
+    const children = container.querySelectorAll('.stagger-item');
     
     const observer = new IntersectionObserver(
       (entries) => {
@@ -46,7 +57,7 @@ export const useStaggerAnimation = (delay = 100) => {
           if (entry.isIntersecting) {
             children.forEach((child, index) => {
               setTimeout(() => {
-                child.classList.add('animate');
+                child.classList.add('is-visible');
               }, index * delay);
             });
             observer.disconnect();
@@ -59,7 +70,7 @@ export const useStaggerAnimation = (delay = 100) => {
       }
     );
 
-    observer.observe(element);
+    observer.observe(container);
 
     return () => {
       observer.disconnect();

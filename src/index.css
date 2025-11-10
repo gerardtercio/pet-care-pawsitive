@@ -92,160 +92,182 @@
   .transition-bounce {
     transition: var(--transition-bounce);
   }
+
+  /* ============================================
+     SCROLL REVEAL ANIMATIONS
+     ============================================ */
   
-  /* Advanced Hover Effects */
+  /* Fade In - Elementos surgem suavemente */
+  .scroll-fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  
+  .scroll-fade-in.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Slide Up - Elementos sobem ao aparecer */
+  .scroll-slide-up {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+  }
+  
+  .scroll-slide-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Slide From Left */
+  .scroll-slide-left {
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+  }
+  
+  .scroll-slide-left.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  /* Slide From Right */
+  .scroll-slide-right {
+    opacity: 0;
+    transform: translateX(60px);
+    transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+  }
+  
+  .scroll-slide-right.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  /* Zoom In - Imagens crescem ao aparecer */
+  .scroll-zoom {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  
+  .scroll-zoom.is-visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* ============================================
+     HOVER ANIMATIONS
+     ============================================ */
+  
+  /* Hover Lift - Eleva elemento com sombra */
   .hover-lift {
-    @apply transition-all duration-500 ease-out;
+    transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
   }
   
   .hover-lift:hover {
-    @apply -translate-y-2 shadow-large;
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-large);
   }
   
+  /* Hover Scale - Aumenta levemente */
   .hover-scale {
-    @apply transition-all duration-500 ease-out;
+    transition: transform 0.4s ease-out;
   }
   
   .hover-scale:hover {
-    @apply scale-[1.02];
+    transform: scale(1.05);
   }
   
-  .hover-glow {
-    @apply transition-all duration-500 ease-out;
+  /* Hover Button - Para botões com cor e escala */
+  .hover-button {
+    transition: all 0.4s ease-out;
   }
   
-  .hover-glow:hover {
-    @apply shadow-large;
+  .hover-button:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
   }
   
-  .hover-glass {
-    @apply transition-all duration-500 ease-out backdrop-blur-sm;
+  /* Hover Image Zoom - Zoom sutil em imagens */
+  .hover-image-zoom {
+    overflow: hidden;
   }
   
-  .hover-glass:hover {
-    @apply bg-primary/10 backdrop-blur-md;
+  .hover-image-zoom img {
+    transition: transform 0.6s ease-out;
   }
   
-  .hover-shine {
-    @apply relative overflow-hidden transition-all duration-500 ease-out;
+  .hover-image-zoom:hover img {
+    transform: scale(1.08);
   }
   
-  .hover-shine::after {
-    content: '';
-    @apply absolute inset-0 -translate-x-full transition-transform duration-700 ease-out;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  /* Hover Card - Para cards de serviços */
+  .hover-card {
+    transition: all 0.5s ease-out;
   }
   
-  .hover-shine:hover::after {
-    @apply translate-x-full;
+  .hover-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-large);
   }
   
-  .hover-elevate {
-    @apply transition-all duration-700 ease-out;
+  /* Hover Link - Para links com cor suave */
+  .hover-link {
+    transition: color 0.3s ease-out, transform 0.3s ease-out;
   }
   
-  .hover-elevate:hover {
-    @apply -translate-y-3 shadow-large scale-[1.02];
+  .hover-link:hover {
+    transform: translateX(4px);
   }
+
+  /* ============================================
+     STAGGERED ANIMATIONS (Cards em sequência)
+     ============================================ */
   
-  /* Button Hover Animations */
-  .btn-smooth-hover {
-    @apply transition-all duration-500 ease-out;
-  }
-  
-  .btn-smooth-hover:hover {
-    @apply brightness-110 scale-105;
-  }
-  
-  /* Pet Care Specific Styles */
-  .paw-pattern {
-    position: relative;
-  }
-  
-  .paw-pattern::before {
-    content: '🐾';
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    font-size: 1.5rem;
-    opacity: 0.1;
-    pointer-events: none;
-  }
-  
-  /* Scroll Animation Classes */
-  .fade-in {
-    @apply opacity-0 translate-y-4 transition-all duration-700 ease-out;
-  }
-  
-  .fade-in.animate {
-    @apply opacity-100 translate-y-0;
-  }
-  
-  .fade-in-up {
-    @apply opacity-0 translate-y-12 transition-all duration-700 ease-out;
-  }
-  
-  .fade-in-up.animate {
-    @apply opacity-100 translate-y-0;
-  }
-  
-  .slide-in-left {
-    @apply opacity-0 -translate-x-12 transition-all duration-700 ease-out;
-  }
-  
-  .slide-in-left.animate {
-    @apply opacity-100 translate-x-0;
-  }
-  
-  .slide-in-right {
-    @apply opacity-0 translate-x-12 transition-all duration-700 ease-out;
-  }
-  
-  .slide-in-right.animate {
-    @apply opacity-100 translate-x-0;
-  }
-  
-  .scale-in {
-    @apply opacity-0 scale-95 transition-all duration-700 ease-out;
-  }
-  
-  .scale-in.animate {
-    @apply opacity-100 scale-100;
-  }
-  
-  .rotate-in {
-    @apply opacity-0 rotate-6 transition-all duration-700 ease-out;
-  }
-  
-  .rotate-in.animate {
-    @apply opacity-100 rotate-0;
-  }
-  
-  /* Staggered Animations */
   .stagger-item {
-    @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
   }
   
-  .stagger-item.animate {
-    @apply opacity-100 translate-y-0;
+  .stagger-item.is-visible {
+    opacity: 1;
+    transform: translateY(0);
   }
   
-  /* Image Zoom Effect */
-  .image-zoom {
-    @apply overflow-hidden;
+  /* Delays para efeito cascata */
+  .stagger-item:nth-child(1) {
+    transition-delay: 0.1s;
   }
   
-  .image-zoom img {
-    @apply transition-transform duration-700 ease-out;
+  .stagger-item:nth-child(2) {
+    transition-delay: 0.2s;
   }
   
-  .image-zoom.animate img {
-    @apply scale-105;
+  .stagger-item:nth-child(3) {
+    transition-delay: 0.3s;
   }
   
-  /* Parallax Effect */
-  .parallax-slow {
-    @apply transition-transform duration-1000 ease-out;
+  .stagger-item:nth-child(4) {
+    transition-delay: 0.4s;
+  }
+  
+  .stagger-item:nth-child(5) {
+    transition-delay: 0.5s;
+  }
+  
+  .stagger-item:nth-child(6) {
+    transition-delay: 0.6s;
+  }
+
+  /* ============================================
+     SMOOTH SCROLLING
+     ============================================ */
+  
+  html {
+    scroll-behavior: smooth;
   }
 }
 
