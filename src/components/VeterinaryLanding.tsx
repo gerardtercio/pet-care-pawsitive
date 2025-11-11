@@ -18,14 +18,6 @@ import {
   Clock,
   CheckCircle
 } from 'lucide-react';
-import { 
-  PawPrint, 
-  BoneIcon, 
-  HeartPaw, 
-  DecorativeCircle, 
-  PawDivider,
-  FloatingPaw 
-} from './PetDecorations';
 import { Button } from '@/components/ui/button';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel';
 import { useScrollAnimation, useStaggerAnimation } from '@/hooks/use-scroll-animation';
@@ -348,34 +340,11 @@ const VeterinaryLanding = () => {
 
       {/* Hero Section */}
       <section id="home" className="relative min-h-screen flex items-center hero-gradient overflow-hidden pt-16">
-        {/* Decorative SVG Elements - Hero */}
+        {/* Decorative shapes */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Top right floating paws */}
-          <FloatingPaw size="small" className="absolute top-20 right-10 rotate-12" opacity={0.2} delay={0} />
-          <FloatingPaw size="small" className="absolute top-32 right-24 -rotate-12" opacity={0.15} delay={0.5} />
-          
-          {/* Top left floating paws */}
-          <FloatingPaw size="small" className="absolute top-24 left-16 -rotate-12" opacity={0.15} delay={1} />
-          <FloatingPaw size="small" className="absolute top-40 left-32 rotate-12" opacity={0.2} delay={1.5} />
-          <FloatingPaw size="medium" className="absolute top-52 left-12 rotate-45" opacity={0.12} delay={2} />
-          
-          {/* Large background circle */}
-          <DecorativeCircle 
-            size={400} 
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10" 
-            opacity={0.08} 
-            gradient={true} 
-          />
-          
-          {/* Background paws behind hero */}
-          <PawPrint size="large" className="absolute top-1/3 right-1/4 rotate-12" opacity={0.08} />
-          <PawPrint size="large" className="absolute bottom-1/3 left-1/4 -rotate-12" opacity={0.08} />
-          
-          {/* Additional decorative paws - hidden on mobile */}
-          <div className="hidden md:block">
-            <PawPrint size="medium" className="absolute top-60 right-40 rotate-45" opacity={0.1} />
-            <PawPrint size="medium" className="absolute bottom-40 left-40 -rotate-45" opacity={0.1} />
-          </div>
+          <div className="absolute top-20 left-10 w-32 h-32 bg-primary-foreground/10 rounded-full"></div>
+          <div className="absolute bottom-20 right-10 w-48 h-48 bg-accent-highlight/20 rounded-full"></div>
+          <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-primary-light/30 rounded-full"></div>
         </div>
 
         <div className="container mx-auto px-4">
@@ -417,6 +386,9 @@ const VeterinaryLanding = () => {
                   className="w-full rounded-2xl"
                 />
               </div>
+              {/* Decorative paw prints */}
+              <div className="absolute -top-4 -right-4 text-6xl opacity-20">🐾</div>
+              <div className="absolute -bottom-4 -left-4 text-4xl opacity-30">🐾</div>
             </div>
           </div>
         </div>
@@ -434,9 +406,6 @@ const VeterinaryLanding = () => {
           </svg>
         </div>
       </section>
-
-      {/* Paw Divider */}
-      <PawDivider />
 
       {/* Mission Section */}
       <section id="about" className="py-20 bg-background">
@@ -502,16 +471,8 @@ const VeterinaryLanding = () => {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="relative py-20 bg-secondary">
-        {/* Decorative paws for services section */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <PawPrint size="small" className="absolute top-32 right-20 rotate-12" opacity={0.08} />
-          <PawPrint size="small" className="absolute top-48 left-24 -rotate-12" opacity={0.08} />
-          <PawPrint size="small" className="absolute bottom-32 right-32 rotate-45" opacity={0.08} />
-          <PawPrint size="small" className="absolute bottom-48 left-28 -rotate-45" opacity={0.08} />
-        </div>
-        
-        <div className="container mx-auto px-4 relative z-10">
+      <section id="services" className="py-20 bg-secondary">
+        <div className="container mx-auto px-4">
           <div className="text-center mb-16 scroll-fade-in">
             <h2 className="text-3xl lg:text-4xl font-bold text-primary-dark mb-4">
               Oferecemos os Melhores Serviços
@@ -524,12 +485,7 @@ const VeterinaryLanding = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Service Card 1 */}
-            <div className="stagger-item card-gradient rounded-xl p-8 shadow-soft hover-card relative overflow-hidden">
-              {/* Corner decoration */}
-              <div className="absolute top-3 right-3 pointer-events-none">
-                <PawPrint size="small" opacity={0.15} className="rotate-12" />
-              </div>
-              
+            <div className="stagger-item card-gradient rounded-xl p-8 shadow-soft hover-card">
               <div className="w-16 h-16 bg-accent-gradient rounded-full flex items-center justify-center mb-6 transition-transform duration-300 hover:scale-110">
                 <Stethoscope className="h-8 w-8 text-primary-foreground" />
               </div>
@@ -548,12 +504,7 @@ const VeterinaryLanding = () => {
             </div>
 
             {/* Service Card 2 */}
-            <div className="stagger-item card-gradient rounded-xl p-8 shadow-soft hover-card relative overflow-hidden">
-              {/* Corner decoration */}
-              <div className="absolute top-3 right-3 pointer-events-none">
-                <PawPrint size="small" opacity={0.15} className="-rotate-12" />
-              </div>
-              
+            <div className="stagger-item card-gradient rounded-xl p-8 shadow-soft hover-card">
               <div className="w-16 h-16 bg-accent-gradient rounded-full flex items-center justify-center mb-6 transition-transform duration-300 hover:scale-110">
                 <Shield className="h-8 w-8 text-primary-foreground" />
               </div>
@@ -572,12 +523,7 @@ const VeterinaryLanding = () => {
             </div>
 
             {/* Service Card 3 */}
-            <div className="stagger-item card-gradient rounded-xl p-8 shadow-soft hover-card relative overflow-hidden">
-              {/* Corner decoration */}
-              <div className="absolute top-3 right-3 pointer-events-none">
-                <PawPrint size="small" opacity={0.15} className="rotate-45" />
-              </div>
-              
+            <div className="stagger-item card-gradient rounded-xl p-8 shadow-soft hover-card">
               <div className="w-16 h-16 bg-accent-gradient rounded-full flex items-center justify-center mb-6 transition-transform duration-300 hover:scale-110">
                 <Heart className="h-8 w-8 text-primary-foreground fill-current" />
               </div>
@@ -596,12 +542,7 @@ const VeterinaryLanding = () => {
             </div>
 
             {/* Service Card 4 */}
-            <div className="stagger-item card-gradient rounded-xl p-8 shadow-soft hover-card relative overflow-hidden">
-              {/* Corner decoration */}
-              <div className="absolute top-3 right-3 pointer-events-none">
-                <PawPrint size="small" opacity={0.15} className="rotate-12" />
-              </div>
-              
+            <div className="stagger-item card-gradient rounded-xl p-8 shadow-soft hover-card">
               <div className="w-16 h-16 bg-accent-gradient rounded-full flex items-center justify-center mb-6 transition-transform duration-300 hover:scale-110">
                 <Clock className="h-8 w-8 text-primary-foreground" />
               </div>
@@ -620,12 +561,7 @@ const VeterinaryLanding = () => {
             </div>
 
             {/* Service Card 5 */}
-            <div className="stagger-item card-gradient rounded-xl p-8 shadow-soft hover-card relative overflow-hidden">
-              {/* Corner decoration */}
-              <div className="absolute top-3 right-3 pointer-events-none">
-                <PawPrint size="small" opacity={0.15} className="-rotate-12" />
-              </div>
-              
+            <div className="stagger-item card-gradient rounded-xl p-8 shadow-soft hover-card">
               <div className="w-16 h-16 bg-accent-gradient rounded-full flex items-center justify-center mb-6 transition-transform duration-300 hover:scale-110">
                 <Calendar className="h-8 w-8 text-primary-foreground" />
               </div>
@@ -644,12 +580,7 @@ const VeterinaryLanding = () => {
             </div>
 
             {/* Service Card 6 */}
-            <div className="stagger-item card-gradient rounded-xl p-8 shadow-soft hover-card relative overflow-hidden">
-              {/* Corner decoration */}
-              <div className="absolute top-3 right-3 pointer-events-none">
-                <PawPrint size="small" opacity={0.15} className="rotate-45" />
-              </div>
-              
+            <div className="stagger-item card-gradient rounded-xl p-8 shadow-soft hover-card">
               <div className="w-16 h-16 bg-accent-gradient rounded-full flex items-center justify-center mb-6 transition-transform duration-300 hover:scale-110">
                 <Users className="h-8 w-8 text-primary-foreground" />
               </div>
@@ -669,9 +600,6 @@ const VeterinaryLanding = () => {
           </div>
         </div>
       </section>
-
-      {/* Paw Divider */}
-      <PawDivider />
 
       {/* Facility Carousel Section */}
       <section className="py-20 bg-muted">
@@ -706,18 +634,8 @@ const VeterinaryLanding = () => {
       </section>
 
       {/* Final CTA Section */}
-      <section className="relative py-20 hero-gradient overflow-hidden">
-        {/* Decorative elements for CTA */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <HeartPaw className="absolute top-10 left-10 rotate-12" opacity={0.12} />
-          <HeartPaw className="absolute bottom-10 right-10 -rotate-12" opacity={0.12} />
-          <DecorativeCircle size={200} className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2" opacity={0.08} />
-          <DecorativeCircle size={200} className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2" opacity={0.08} />
-          <PawPrint size="medium" className="absolute top-20 right-1/4 rotate-45" opacity={0.1} />
-          <PawPrint size="medium" className="absolute bottom-20 left-1/4 -rotate-45" opacity={0.1} />
-        </div>
-        
-        <div className="container mx-auto px-4 text-center relative z-10">
+      <section className="py-20 hero-gradient">
+        <div className="container mx-auto px-4 text-center">
           <div className="scroll-fade-in max-w-3xl mx-auto">
             <h2 className="text-3xl lg:text-4xl font-bold text-primary-foreground mb-6">
               Pronto para Cuidar do Seu Pet?
@@ -749,20 +667,8 @@ const VeterinaryLanding = () => {
       </section>
 
       {/* Footer */}
-      <footer id="contact" className="relative bg-primary-dark text-primary-foreground py-16">
-        {/* Footer decorative elements */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <PawPrint size="medium" className="absolute bottom-8 left-8 rotate-12" opacity={0.1} />
-          <PawPrint size="medium" className="absolute bottom-8 right-8 -rotate-12" opacity={0.1} />
-          <BoneIcon className="absolute bottom-16 left-1/4 rotate-45" opacity={0.12} />
-          <BoneIcon className="absolute bottom-16 right-1/4 -rotate-45" opacity={0.12} />
-          <div className="hidden lg:block">
-            <PawPrint size="small" className="absolute top-12 left-16 rotate-12" opacity={0.08} />
-            <PawPrint size="small" className="absolute top-12 right-16 -rotate-12" opacity={0.08} />
-          </div>
-        </div>
-        
-        <div className="container mx-auto px-4 relative z-10">
+      <footer id="contact" className="bg-primary-dark text-primary-foreground py-16">
+        <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Company Info */}
             <div>
