@@ -16,7 +16,8 @@ import {
   Users,
   Award,
   Clock,
-  CheckCircle
+  CheckCircle,
+  MessageCircle
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel';
@@ -797,6 +798,17 @@ const VeterinaryLanding = () => {
           </div>
         </div>
       </footer>
+
+      {/* WhatsApp Floating Button */}
+      <a
+        href="https://wa.me/5511999998888"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#20BA5A] text-white rounded-full p-4 shadow-large hover-lift transition-all duration-300 hover:scale-110"
+        aria-label="Contato via WhatsApp"
+      >
+        <MessageCircle className="h-7 w-7" />
+      </a>
     </div>
   );
 };
