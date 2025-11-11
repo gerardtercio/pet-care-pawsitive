@@ -387,8 +387,7 @@ const VeterinaryLanding = () => {
                 />
               </div>
               {/* Decorative paw prints */}
-              <div className="absolute -top-4 -right-4 text-6xl opacity-20">🐾</div>
-              <div className="absolute -bottom-4 -left-4 text-4xl opacity-30">🐾</div>
+              
             </div>
           </div>
         </div>
@@ -435,16 +434,10 @@ const VeterinaryLanding = () => {
                 O Que Fazemos
               </h2>
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                Na PetCare Clinic, nossa missão é proporcionar cuidados veterinários 
-                excepcionais com compaixão e dedicação. Acreditamos que cada pet merece 
-                o melhor tratamento possível, e nossa equipe está comprometida em oferecer 
-                serviços de alta qualidade em todas as especialidades.
+              A PetCare Clinic é uma clínica veterinária com estrutura completa para atender seu pet em todas as necessidades, desde consultas preventivas até emergências.
               </p>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                Combinamos tecnologia de ponta com um toque humano caloroso, garantindo 
-                que tanto os pets quanto seus tutores se sintam confortáveis e seguros 
-                em nossa clínica. Nosso compromisso é com a saúde e felicidade de cada 
-                animal que cuidamos.
+              Nossa equipe é formada por profissionais qualificados e experientes, preparados para realizar procedimentos gerais, cirurgias, exames laboratoriais e atendimento intensivo.
               </p>
               
               <div className="grid grid-cols-2 gap-6">
