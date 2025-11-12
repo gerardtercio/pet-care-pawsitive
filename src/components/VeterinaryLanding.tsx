@@ -142,7 +142,6 @@ const VeterinaryLanding = () => {
     const facilities = [
       { image: facilityFacade, alt: "Fachada moderna da clínica" },
       { image: facilityReception, alt: "Recepção aconchegante" },
-      { image: facilityExamRoom, alt: "Sala de atendimento equipada" },
       { image: facilityWard, alt: "Área de internação" },
       { image: facilityGrooming, alt: "Espaço de banho e tosa" },
       { image: facilityLaboratory, alt: "Laboratório interno" },
